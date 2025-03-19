@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thing Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
+        }
+        .mobile {
+            width: 300px;
+            height: 600px;
+            background: #000;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border: 6px solid #222;
+            overflow: hidden;
+        }
+        /* iPhone notch */
+        .notch {
+            width: 120px;
+            height: 25px;
+            background: #000;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+        .screen {
+            width: 88%;
+            height: 85%;
+            background: #222;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .thing-btn {
+            width: 80%;
+            padding: 14px 0;
+            font-size: 18px;
+            border: none;
+            font-weight: bold;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 12px 0;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ff5f6d, #ffc371);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+        .thing-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+        .thing-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+    <script>
+        function unlockThing(thing) {
+            fetch(`/unlock/${thing}`, { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <div class="mobile">
+        <div class="notch"></div>
+        <div class="screen">
+            <h2>Thing Control</h2>
+            <button class="thing-btn" onclick="unlockThing('thing1')">Unlock Thing 1</button>
+            <button class="thing-btn" onclick="unlockThing('thing2')">Unlock Thing 2</button>
+        </div>
+    </div>
+</body>
+</html>
